@@ -66,19 +66,17 @@ while(True):
     for worker in workersInfo:
         worker_id = worker['id']
         worker_hashrate = float(worker['hashrate'])
-        min_speed = RIG_SPEED_MINIMUM[worker_id]
-
-        rigHashrates += "\t{} : {}\n".format(
-            worker_id,
-            worker_hashrate)
-        
-        if worker_hashrate == 0 or worker_hashrate < min_speed:
-            cyclePower(worker_id)
-            rigHashrates += "\t\tStatus: RESTARTED\n"
-        else:
-            rigHashrates += "\t\tStatus: Normal\n"
-            
-        machines_left_to_check.remove(worker_id)
+        try:
+            min_speed = RIG_SPEED_MINIMUM[worker_id]
+            rigHashrates += "\t{} : {}\n".format(worker_id,worker_hashrate)
+            if worker_hashrate == 0 or worker_hashrate < min_speed:
+                cyclePower(worker_id)
+                rigHashrates += "\t\tStatus: RESTARTED\n"
+            else:
+                rigHashrates += "\t\tStatus: Normal\n"
+                machines_left_to_check.remove(worker_id)
+        except:
+            pass
 
     message = """
 ******************************
