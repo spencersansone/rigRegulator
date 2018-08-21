@@ -74,7 +74,7 @@ while(True):
                 rigHashrates += "\t\tStatus: RESTARTED\n"
             else:
                 rigHashrates += "\t\tStatus: Normal\n"
-                machines_left_to_check.remove(worker_id)
+            machines_left_to_check.remove(worker_id)
         except:
             pass
 
